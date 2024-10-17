@@ -29,24 +29,20 @@ def unknown(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("🤔 ဒီ Command ကို မသိပါဘူး။ Menu ထဲက ပြန်ရွေးပါ။")
 
 def main() -> None:
-    # GitHub Secrets ကနေ BOT_TOKEN ကို ယူပါ
-    bot_token = os.getenv("BOT_TOKEN")  # BOT_TOKEN ကို GitHub Secrets ထဲမှာသိမ်းထားရမယ်
+    # BOT_TOKEN ကို Secrets ကနေ ယူပါ
+    bot_token = os.getenv("BOT_TOKEN")
 
     if not bot_token:
         raise ValueError("BOT_TOKEN is not set. Check your GitHub Secrets configuration.")
 
-    # Updater ကို Token နဲ့ Initialize လုပ်ပါ
     updater = Updater(bot_token)
-    
     dispatcher = updater.dispatcher
 
-    # Command Handler တွေကို ထည့်သွင်းပါ
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("about", about))
     dispatcher.add_handler(CommandHandler("places", places))
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, unknown))
 
-    # Bot ကို Start လုပ်ပါ
     updater.start_polling()
     updater.idle()
 
