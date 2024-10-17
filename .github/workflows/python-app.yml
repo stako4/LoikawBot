@@ -17,5 +17,5 @@ jobs:
         pip install -r requirements.txt
     - name: Run Bot
       env:
-        BOT_TOKEN: ${{ 7594541731:AAHxU60qI2wvDENt1lUyMFM2s61wfnxGQhQ }}
+        BOT_TOKEN: ${{ 7594541731:AAHRfyRJ__6qhTMfDkcthKI8Q6e3nkLrEXU }}
       run: python loikawbot.py
