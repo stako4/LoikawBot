@@ -1,22 +1,28 @@
 import os
 from telegram import Update, ReplyKeyboardMarkup
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.ext import (
+    ApplicationBuilder,
+    CommandHandler,
+    MessageHandler,
+    filters,
+    ContextTypes,
+)
 
-def start(update: Update, context: CallbackContext) -> None:
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     keyboard = [['🗺 Loikaw အကြောင်း', '📍 အထင်ကရနေရာများ'], ['ℹ️ အကူအညီ']]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-    update.message.reply_text(
+    await update.message.reply_text(
         "မင်္ဂလာပါ! 😊 LoikawBot မှ ကြိုဆိုပါတယ်။ သင် သိလိုတာတွေကို အောက်က Menu ကနေ ရွေးပါ။",
         reply_markup=reply_markup
     )
 
-def about(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text(
+async def about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text(
         "Loikaw ဟာ Kayah ပြည်နယ်ရဲ့ မြို့တော် ဖြစ်ပြီး သဘာဝနဲ့ ယဉ်ကျေးမှုအလှတွေကို စုစည်းထားပါတယ်။"
     )
 
-def places(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text(
+async def places(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text(
         "📍 **Loikaw ရဲ့ အထင်ကရနေရာများ:**\n"
         "1. 🏯 **Taung Kwe Pagoda**\n"
         "2. 🌊 **Htee Pwint Kan (Umbrella Lake)**\n"
@@ -25,8 +31,8 @@ def places(update: Update, context: CallbackContext) -> None:
         "5. 🏞 **Seven Lakes**"
     )
 
-def unknown(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("🤔 ဒီ Command ကို မသိပါဘူး။ Menu ထဲက ပြန်ရွေးပါ။")
+async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text("🤔 ဒီ Command ကို မသိပါဘူး။ Menu ထဲက ပြန်ရွေးပါ။")
 
 def main() -> None:
     bot_token = os.getenv("BOT_TOKEN")
@@ -34,16 +40,14 @@ def main() -> None:
     if not bot_token:
         raise ValueError("BOT_TOKEN is not set. Check your GitHub Secrets configuration.")
 
-    updater = Updater(bot_token)
-    dispatcher = updater.dispatcher
+    application = ApplicationBuilder().token(bot_token).build()
 
-    dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CommandHandler("about", about))
-    dispatcher.add_handler(CommandHandler("places", places))
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, unknown))
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("about", about))
+    application.add_handler(CommandHandler("places", places))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, unknown))
 
-    updater.start_polling()
-    updater.idle()
+    application.run_polling()
 
 if __name__ == '__main__':
     main()
