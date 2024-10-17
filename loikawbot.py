@@ -28,7 +28,7 @@ def unknown(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("🤔 ဒီ Command ကို မသိပါဘူး။ Menu ထဲက ပြန်ရွေးပါ။")
 
 def main() -> None:
-    updater = Updater("7594541731:7594541731:AAHRfyRJ__6qhTMfDkcthKI8Q6e3nkLrEXU")
+    updater = Updater("7594541731:AAHRfyRJ__6qhTMfDkcthKI8Q6e3nkLrEXU")
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler("start", start))
