@@ -29,7 +29,7 @@ def unknown(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("🤔 ဒီ Command ကို မသိပါဘူး။ Menu ထဲက ပြန်ရွေးပါ။")
 
 def main() -> None:
-    bot_token = os.getenv("BOT_TOKEN")  # Secret ကနေ BOT_TOKEN ကိုယူ
+    bot_token = os.getenv("BOT_TOKEN")
 
     if not bot_token:
         raise ValueError("BOT_TOKEN is not set. Check your GitHub Secrets configuration.")
