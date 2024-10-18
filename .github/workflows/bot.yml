@@ -1,4 +1,4 @@
-name: Run Loikaw Bot
+name: Run Telegram Bot
 
 on:
   push:
