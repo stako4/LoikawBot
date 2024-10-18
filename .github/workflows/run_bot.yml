@@ -32,7 +32,4 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}  # GitHub Secrets မှ Token
         run: |
           python loikaw_bot.py  
-# Bot script ကို run ပါ
-git add .
-git commit -m "Setup Telegram Bot"
-git push origin main          
+# Bot script ကို run ပါ     
