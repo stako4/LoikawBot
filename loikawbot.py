@@ -2,12 +2,13 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 from dotenv import load_dotenv
 import os
+from telegram.ext import ApplicationBuilder
 
-# Load the .env file
-load_dotenv()
+TOKEN = os.getenv("TELEGRAM_TOKEN")
 
-# Retrieve the token from the .env file
-TOKEN = os.getenv("BOT_TOKEN")
+if __name__ == "__main__":
+    app = ApplicationBuilder().token(TOKEN).build()
+    app.run_polling()
 
 # Start command with a warm and engaging message
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
