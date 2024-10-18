@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 from telegram.ext import ApplicationBuilder
 
-TOKEN = os.getenv("TELEGRAM_TOKEN")
+TOKEN = os.getenv("BOT_TOKEN")
 
 if __name__ == "__main__":
     app = ApplicationBuilder().token(TOKEN).build()
