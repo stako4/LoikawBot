@@ -21,7 +21,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r .github/workflows/requirements.txt
           pip install python-dotenv
           pip install python-telegram-bot --upgrade  # Telegram library
 
