@@ -1,4 +1,4 @@
-name: Run Telegram Bot
+name: Run Loikaw Bot
 
 on:
   push:
@@ -26,6 +26,6 @@ jobs:
 
       - name: Run the bot
         env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}  # GitHub Secrets မှ Token
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}  # GitHub Secrets မှ Token
         run: |
           python loikaw_bot.py  # Bot script ကို run ပါ
