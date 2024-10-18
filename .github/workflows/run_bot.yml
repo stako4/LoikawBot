@@ -25,7 +25,7 @@ jobs:
           pip install python-telegram-bot --upgrade  # Telegram library
 
       - name: List project files (Optional Debugging)
-        run: ls -R  # ဖိုင်များ စာရင်းကို စစ်ဆေးရန်
+        run: |
 
       - name: Run the bot
         env:
