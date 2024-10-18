@@ -1,9 +1,12 @@
 import os
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import (
+    ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
+)
 
 # GitHub Secrets မှ BOT_TOKEN ကို ရယူခြင်း
 TOKEN = os.getenv("BOT_TOKEN")
+
 # Start command with a warm and engaging message
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
@@ -19,7 +22,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Loikaw အကြောင်း အားလုံးကို ဒီမှာ လေ့လာနိုင်ပါတယ်။\n\n"
         "ဘာကို သိချင်ပါသလဲ? 👇 ရွေးချယ်ပါ:"
     )
-    await update.message.reply_text(welcome_message, reply_markup=reply_markup, parse_mode='Markdown')
+    await update.message.reply_text(
+        welcome_message, reply_markup=reply_markup, parse_mode='Markdown'
+    )
 
 # Callback function for button interactions
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -50,6 +55,9 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Main function to run the bot
 if __name__ == "__main__":
+    if not TOKEN:
+        raise ValueError("BOT_TOKEN မရှိပါ! GitHub Secrets မှန်ကန်စွာ သတ်မှတ်ထားကြောင်း သေချာပါ။")
+
     app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
