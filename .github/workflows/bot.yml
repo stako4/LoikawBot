@@ -1,0 +1,31 @@
+name: Run Telegram Bot
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'  # သင်လိုသည့် Python version ထည့်ပါ
+
+      - name: Install dependencies
+        run: |
+          pip install python-dotenv
+          pip install python-telegram-bot  # သင်၏ Telegram library သို့ထည့်ပါ
+
+      - name: Run the bot
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}  # GitHub Secrets မှ Token
+        run: |
+          python loikaw_bot.py  # သင်၏ Bot file ကို run ပါ
