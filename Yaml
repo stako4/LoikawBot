@@ -1,0 +1,34 @@
+name: Run LoikawBot
+
+on:
+  push:
+    branches:
+      - main  # Main branch မှာ Push လုပ်သည့်အခါ Run မည်
+  workflow_dispatch:  # Run ကို Manual ဖြင့်လည်း စတင်နိုင်မည်
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Repo code ကို Pull လုပ်မည်
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'  # သင့်လိုအပ်သော Python Version
+
+      - name: Install dependencies
+        run: |
+          pip install python-dotenv  # Env Variables ကို အသုံးပြုရန်
+          pip install python-telegram-bot --upgrade  # Telegram Bot Library
+
+      - name: List project files (Optional Debugging)
+        run: ls -R  # ဖိုင်များ စာရင်းကို စစ်ဆေးရန်
+
+      - name: Run the bot
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}  # GitHub Secrets မှ Token ရယူရန်
+        run: |
+          python loikaw_bot.py  # Bot Script ကို Run
