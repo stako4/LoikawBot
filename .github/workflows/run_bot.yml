@@ -21,6 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          pip install -r requirements.txt
           pip install python-dotenv
           pip install python-telegram-bot --upgrade  # Telegram library
 
@@ -32,3 +33,4 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}  # GitHub Secrets မှ Token
         run: |
           python loikaw_bot.py  # Bot script ကို run ပါ
+          
