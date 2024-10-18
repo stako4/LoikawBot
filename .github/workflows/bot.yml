@@ -17,15 +17,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'  # သင်လိုသည့် Python version ထည့်ပါ
+          python-version: '3.9'  # သင့်လိုအပ်သော Python version ထည့်ပါ
 
       - name: Install dependencies
         run: |
           pip install python-dotenv
-          pip install python-telegram-bot  # သင်၏ Telegram library သို့ထည့်ပါ
+          pip install python-telegram-bot  # Telegram library ထည့်ပါ
 
       - name: Run the bot
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}  # GitHub Secrets မှ Token
         run: |
-          python loikaw_bot.py  # သင်၏ Bot file ကို run ပါ
+          python loikaw_bot.py  # Bot script ကို run ပါ
