@@ -1,14 +1,9 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 import os
-from telegram.ext import ApplicationBuilder
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
+# GitHub Secrets မှ BOT_TOKEN ကို ရယူခြင်း
 TOKEN = os.getenv("BOT_TOKEN")
-
-if __name__ == "__main__":
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.run_polling()
-
 # Start command with a warm and engaging message
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
