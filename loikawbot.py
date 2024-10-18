@@ -7,7 +7,7 @@ import os
 load_dotenv()
 
 # Retrieve the token from the .env file
-TOKEN = os.getenv("TELEGRAM_TOKEN")
+TOKEN = os.getenv("BOT_TOKEN")
 
 # Start command with a warm and engaging message
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
