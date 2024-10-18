@@ -1,97 +1,64 @@
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
+from dotenv import load_dotenv
 import os
-from telegram import Update, ReplyKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-# Function to start the bot
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    keyboard = [['🏞️ Attractions', '🍜 Local Cuisine'], ['👥 Ethnic Groups', '🛏️ Accommodation'], ['🗺️ Practical Info', '📅 About Loikaw']]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-    await update.message.reply_text(
-        "Welcome to LoikawBot! Please select an option from the menu:",
-        reply_markup=reply_markup
-    )
+# Load the .env file
+load_dotenv()
 
-# Function to show attractions
-async def attractions(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    attractions_text = (
-        "### Things to Do in Loikaw:\n"
-        "1. **Visit authentic Kayan villages** - Experience the daily lives of Kayan women.\n"
-        "2. **Learn about ethnic diversity** - Meet various ethnic groups like Palaung, Shan, and Kayah.\n"
-        "3. **Explore stunning pagodas** - Visit Taung Kwe Pagoda for breathtaking views.\n"
-        "4. **Enjoy local cuisine** - Try rice rolls and other delicious local dishes.\n"
-        "5. **Spot domestic elephants** - Witness elephants collecting firewood.\n"
-    )
-    await update.message.reply_text(attractions_text)
+# Retrieve the token from the .env file
+TOKEN = os.getenv("TELEGRAM_TOKEN")
 
-# Function to show local cuisine
-async def local_cuisine(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    cuisine_text = (
-        "### Unique Local Cuisine:\n"
-        "Loikaw is famous for its rice paste-based dishes, including:\n"
-        "- **Rice rolls** filled with pork meat.\n"
-        "- **Risotto** with minced tuna and vegetables.\n"
-        "Experience these delicacies in local eateries!"
-    )
-    await update.message.reply_text(cuisine_text)
+# Start command with a warm and engaging message
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton("📜 Loikaw သမိုင်း", callback_data='history')],
+        [InlineKeyboardButton("🏞 အထင်ကရနေရာများ", callback_data='places')],
+        [InlineKeyboardButton("🎭 ယဉ်ကျေးမှုနှင့် အစဉ်အလာ", callback_data='culture')]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
 
-# Function to show ethnic groups
-async def ethnic_groups(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    groups_text = (
-        "### Ethnic Diversity in Loikaw:\n"
-        "Loikaw is home to multiple ethnic groups:\n"
-        "- **Kayan** - Known for their long necks.\n"
-        "- **Palaung** - Predominantly from Shan State.\n"
-        "- **Kayah** - Their women often wear black and red dresses.\n"
-        "Exploring these communities is a unique experience!"
+    welcome_message = (
+        "🎉 **မင်္ဂလာပါ!** 🎉\n\n"
+        "🌄 **LoikawBot** မှ ကြိုဆိုပါသည်။ ကယားပြည်နယ်၏ လှပသောမြို့လေး "
+        "Loikaw အကြောင်း အားလုံးကို ဒီမှာ လေ့လာနိုင်ပါတယ်။\n\n"
+        "ဘာကို သိချင်ပါသလဲ? 👇 ရွေးချယ်ပါ:"
     )
-    await update.message.reply_text(groups_text)
+    await update.message.reply_text(welcome_message, reply_markup=reply_markup, parse_mode='Markdown')
 
-# Function to show accommodation options
-async def accommodation(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    accommodation_text = (
-        "### Accommodation in Loikaw:\n"
-        "- **Budget:** Loikaw Princess Motel - Friendly staff and free bicycle rental.\n"
-        "- **Mid-Range:** Kayan Golden Sky Motel - Clean and cozy for couples.\n"
-        "Book in advance to secure your stay!"
-    )
-    await update.message.reply_text(accommodation_text)
+# Callback function for button interactions
+async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
 
-# Function to show practical information
-async def practical_info(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    practical_text = (
-        "### Practical Information:\n"
-        "Loikaw is located 200km south of Inle Lake.\n"
-        "Transport options include:\n"
-        "- **Mini-bus from Inle Lake** (9-hour journey)\n"
-        "- **Buses from Yangon** (16-hour journey)\n"
-        "- **Small airport** with flights from Yangon.\n"
-    )
-    await update.message.reply_text(practical_text)
+    if query.data == 'history':
+        await query.edit_message_text(
+            "📜 **Loikaw သမိုင်း**:\n\n"
+            "Loikaw သည် ကယားပြည်နယ်၏ မြို့တော်ဖြစ်ပြီး အလွန်စိတ်ဝင်စားဖွယ်ရာသော သမိုင်းများဖြင့် ပြည့်နေပါသည်။"
+        )
 
-# Function to provide about information
-async def about_loikaw(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    about_text = (
-        "### About Loikaw:\n"
-        "Loikaw is the capital of Kayah State, known for its rich cultural diversity.\n"
-        "Since 2013, it has opened its doors to independent travelers, offering an authentic experience away from mass tourism."
-    )
-    await update.message.reply_text(about_text)
+    elif query.data == 'places':
+        await query.edit_message_text(
+            "🏞 **အထင်ကရနေရာများ**:\n\n"
+            "- နန်းမြို့စေတီ\n"
+            "- ဖားလေးရေတံခွန်\n"
+            "- ဒုလ်လေါင်တောင် 🌄\n\n"
+            "ဒီနေရာတွေကို သွားရောက်လည်ပတ်ဖို့ မမေ့နဲ့နော်!"
+        )
+
+    elif query.data == 'culture':
+        await query.edit_message_text(
+            "🎭 **ယဉ်ကျေးမှုနှင့် အစဉ်အလာ**:\n\n"
+            "Loikaw တွင် တိုင်းရင်းသားများ၏ ယဉ်ကျေးမှုများ၊ အားကစားပွဲများနှင့် "
+            "ဖျော်ဖြေပွဲများကို အစဉ်အတိုင်း ကျင်းပလေ့ရှိပါတယ်။ 💃"
+        )
 
 # Main function to run the bot
-def main() -> None:
-    bot_token = os.getenv("BOT_TOKEN")
+if __name__ == "__main__":
+    app = ApplicationBuilder().token(TOKEN).build()
 
-    application = ApplicationBuilder().token(bot_token).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CallbackQueryHandler(button))
 
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("attractions", attractions))
-    application.add_handler(CommandHandler("local_cuisine", local_cuisine))
-    application.add_handler(CommandHandler("ethnic_groups", ethnic_groups))
-    application.add_handler(CommandHandler("accommodation", accommodation))
-    application.add_handler(CommandHandler("practical_info", practical_info))
-    application.add_handler(CommandHandler("about", about_loikaw))
-
-    application.run_polling()
-
-if __name__ == '__main__':
-    main()
+    print("LoikawBot by STAKO is running... 🚀")
+    app.run_polling()
