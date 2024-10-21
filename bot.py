@@ -28,7 +28,7 @@ async def restaurants(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Main function
 async def main():
-    application = ApplicationBuilder().token("YOUR_TELEGRAM_BOT_TOKEN").build()
+    application = ApplicationBuilder().token("7259866248:AAGpXN0JldtTnn9ra7qA4-C6fK52NMWmNcw").build()
 
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
