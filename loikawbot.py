@@ -1,67 +1,43 @@
-import os
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import (
-    ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
-)
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, CallbackContext
 
-# GitHub Secrets မှ BOT_TOKEN ကို ရယူခြင်း
-TOKEN = os.getenv("BOT_TOKEN")
+# Command handler for /start
+def start(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text('လွှိုင်ကော် Bot သို့ ကြိုဆိုပါသည်။')
 
-# Start command with a warm and engaging message
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        [InlineKeyboardButton("📜 Loikaw သမိုင်း", callback_data='history')],
-        [InlineKeyboardButton("🏞 အထင်ကရနေရာများ", callback_data='places')],
-        [InlineKeyboardButton("🎭 ယဉ်ကျေးမှုနှင့် အစဉ်အလာ", callback_data='culture')]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
-    welcome_message = (
-        "🎉 **မင်္ဂလာပါ!** 🎉\n\n"
-        "🌄 **LoikawBot** မှ ကြိုဆိုပါသည်။ ကယားပြည်နယ်၏ လှပသောမြို့လေး "
-        "Loikaw အကြောင်း အားလုံးကို ဒီမှာ လေ့လာနိုင်ပါတယ်။\n\n"
-        "ဘာကို သိချင်ပါသလဲ? 👇 ရွေးချယ်ပါ:"
+# Command handler for /help
+def help_command(update: Update, context: CallbackContext) -> None:
+    help_text = (
+        "Commands:\n"
+        "/start - လွှိုင်ကော် Bot သို့ ကြိုဆိုပါသည်။\n"
+        "/help - Bot ၏ အသုံးပြုနည်းနှင့် command များကို သိရှိရန် အကူအညီ။\n"
+        "/about - Loikaw Bot ၏ ရည်ရွယ်ချက်နှင့် အကြောင်းအရာကို ဖော်ပြသည်။\n"
+        "/weather - လွှိုင်ကော်မြို့အတွက် နောက်ဆုံး ရာသီဥတုအချက်အလက်များကို ရှာဖွေပါ။\n"
+        "/info - လွှိုင်ကော်မြို့အကြောင်း သတင်းအချက်အလက်များကို ရယူပါ။\n"
+        "/places - လွှိုင်ကော်မြို့ရှိ အထင်ကရနေရာများကို ရှာဖွေပါ။\n"
+        "/hotels - လွှိုင်ကော်တွင် ရှိသော တည်းခိုရာအဆောင်များကို ရှာဖွေပါ။\n"
+        "/restaurants - စားသောက်ရန် ကောင်းသော နေရာများကို ရှာဖွေပါ။"
     )
-    await update.message.reply_text(
-        welcome_message, reply_markup=reply_markup, parse_mode='Markdown'
-    )
+    update.message.reply_text(help_text)
 
-# Callback function for button interactions
-async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
-
-    if query.data == 'history':
-        await query.edit_message_text(
-            "📜 **Loikaw သမိုင်း**:\n\n"
-            "Loikaw သည် ကယားပြည်နယ်၏ မြို့တော်ဖြစ်ပြီး အလွန်စိတ်ဝင်စားဖွယ်ရာသော သမိုင်းများဖြင့် ပြည့်နေပါသည်။"
-        )
-
-    elif query.data == 'places':
-        await query.edit_message_text(
-            "🏞 **အထင်ကရနေရာများ**:\n\n"
-            "- နန်းမြို့စေတီ\n"
-            "- ဖားလေးရေတံခွန်\n"
-            "- ဒုလ်လေါင်တောင် 🌄\n\n"
-            "ဒီနေရာတွေကို သွားရောက်လည်ပတ်ဖို့ မမေ့နဲ့နော်!"
-        )
-
-    elif query.data == 'culture':
-        await query.edit_message_text(
-            "🎭 **ယဉ်ကျေးမှုနှင့် အစဉ်အလာ**:\n\n"
-            "Loikaw တွင် တိုင်းရင်းသားများ၏ ယဉ်ကျေးမှုများ၊ အားကစားပွဲများနှင့် "
-            "ဖျော်ဖြေပွဲများကို အစဉ်အတိုင်း ကျင်းပလေ့ရှိပါတယ်။ 💃"
-        )
+# Command handler for /about
+def about(update: Update, context: CallbackContext) -> None:
+    about_text = "Loikaw Bot သည် လွှိုင်ကော်မြို့အတွက် သတင်းအချက်အလက်များနှင့် အထောက်အကူများ ပေးရန် ရည်ရွယ်သည်။"
+    update.message.reply_text(about_text)
 
 # Main function to run the bot
-if __name__ == "__main__":
-    if not TOKEN:
-        raise ValueError("BOT_TOKEN မရှိပါ! GitHub Secrets မှန်ကန်စွာ သတ်မှတ်ထားကြောင်း သေချာပါ။")
+def main() -> None:
+    # Replace 'YOUR_SECRET_TOKEN' with your bot token
+    updater = Updater("YOUR_SECRET_TOKEN")
 
-    app = ApplicationBuilder().token(TOKEN).build()
+    # Register handlers
+    updater.dispatcher.add_handler(CommandHandler("start", start))
+    updater.dispatcher.add_handler(CommandHandler("help", help_command))
+    updater.dispatcher.add_handler(CommandHandler("about", about))
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CallbackQueryHandler(button))
+    # Start the Bot
+    updater.start_polling()
+    updater.idle()
 
-    print("LoikawBot by STAKO is running... 🚀")
-    app.run_polling()
+if __name__ == '__main__':
+    main()
