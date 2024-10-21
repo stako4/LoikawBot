@@ -1,19 +1,27 @@
-# LoikawBot
+# Loikaw Bot
 
-![LoikawBot Image](path/to/your/image.jpg)  <!-- Replace with the actual image path -->
+Loikaw Bot is a Telegram bot that provides information about Loikaw city, including weather, places to visit, hotels, and restaurants.
 
-LoikawBot သည် Telegram Bot တစ်ခုဖြစ်ပြီး လွှိုင်ကော်မြို့နှင့်ပတ်သက်သော အချက်အလက်များကို ရှာဖွေပါသည်။ Bot သည် `/start`, `/help`, `/weather` စသည့် command များကို အသုံးပြုသူများကို အလွယ်တကူ ပြန်လည်တုံ့ပြန်နိုင်သည်။
+## Features
 
-## Commands
+- Responds to commands:
+  - `/start`: Welcome message
+  - `/help`: List of available commands
+  - `/about`: Information about the bot
+  - `/weather`: Current weather information
+  - `/info`: General information about Loikaw
+  - `/places`: Popular places in Loikaw
+  - `/hotels`: Recommended hotels in Loikaw
+  - `/restaurants`: Good restaurants in Loikaw
 
-- **/start** - လွှိုင်ကော် Bot သို့ ကြိုဆိုပါသည်။
-- **/help** - Bot ၏ အသုံးပြုနည်းနှင့် command များကို သိရှိရန် အကူအညီ။
-- **/about** - Bot ၏ အကြောင်းအရာနှင့် ရည်ရွယ်ချက်ကို ဖော်ပြသည်။
-- **/weather** - လွှိုင်ကော်နေရာအတွက် ရာသီဥတုသိချင်ပါက အသုံးပြုပါ။
-- **/info** - လွှိုင်ကော်မြို့အကြောင်း သတင်းအချက်အလက်များကို ရယူရန်။
+## Requirements
 
-## Owner
-**STAKO Tai**
+- Python 3.8 or higher
+- `python-telegram-bot` library
 
-## Copyright
-Copyright (c) 2024 STAKO Tai
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your_username/loikawbot.git
+   cd loikawbot
