@@ -1,21 +1,23 @@
-# 🌄 Loikaw Explorer Bot  
-**Discover the hidden gems of Loikaw, Myanmar, with this interactive Telegram bot.**  
+# LoikawBot
 
-![Loikaw Pagoda](https://upload.wikimedia.org/wikipedia/commons/3/3b/Taung_Kwe_Pagoda.jpg)  
-*Taung Kwe Pagoda - Stunning views from the top*  
+LoikawBot သည် Telegram Bot တစ်ခုဖြစ်ပြီး လွှိုင်ကော်မြို့နှင့်ပတ်သက်သော အချက်အလက်များကို ရှာဖွေပါသည်။ Bot သည် `/start`, `/help`, `/weather` စသည့် command များကို အသုံးပြုသူများကို အလွယ်တကူ ပြန်လည်တုံ့ပြန်နိုင်ရန် ဖန်တီးထားသည်။
 
 ---
 
-## 🚀 Features  
-- `/start` – Welcome message and guide to using the bot  
-- `/places` – Information about must-visit places in Loikaw  
-- `/food` – Local dishes and culinary experiences  
+## **အင်္ဂါရပ်များ (Features)**
+
+- **Auto Reply**: Telegram Command များကို အသုံးပြုသူများ၏ မေးခွန်းများနှင့် အလိုအလျောက် ပြန်လည်ဖြေကြားသည်။
+- **Inline Mode**: Telegram Chats များတွင် `@loikawbot` ကို mention လုပ်၍ တိုက်ရိုက် ရှာဖွေနိုင်သည်။
+- **Scheduled Tasks**: GitHub Actions မှာ 30 မိနစ်ခြား အလိုအလျောက် run ဖြစ်ပါသည်။
+- **Loikaw Information**: လွှိုင်ကော်နှင့် ပတ်သက်သော သတင်းအချက်အလက်များကို ပေးသည်။
 
 ---
 
-## 🛠️ How to Set Up the Bot  
+## **Bot Commands**
 
-1. **Clone the Repository**  
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/LoikawBot.git
-   cd LoikawBot
+```plaintext
+/start - LoikawBot သို့ ကြိုဆိုသည်။
+/help - Bot ၏ အသုံးပြုနည်းနှင့် command များကို ရှင်းပြသည်။
+/about - Bot ၏ ရည်ရွယ်ချက်နှင့် အကြောင်းအရာကို ဖော်ပြသည်။
+/weather - လွှိုင်ကော် ရာသီဥတုကို ကြည့်ရန်။
+/info - လွှိုင်ကော်မြို့အကြောင်း သတင်းအချက်အလက်များကို ရှာဖွေရန်။
